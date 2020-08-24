@@ -29,11 +29,11 @@ placeBeen.addPlace(place);
 placeBeen.addPlace(place2);
 placeBeen.addPlace(place3);
 
+// USER INTERFACE 
 
-
-//Co-authored-by: Kolman Soifer <ko
-
-
- Co-autho
-
-//  Co-authored-by: Adam Mansell <adammansellhmb@gmail.com>
+$(document).ready(function() {
+  $("form#triangle").submit(function(event) {
+    event.preventDefault();
+    let location = $("input#number1").val();
+    let date = $("input#number2").val();
+    let notes = $("input#number3").val();
