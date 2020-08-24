@@ -1,11 +1,40 @@
 // Business Logic for PlaceBeen -------
 function PlaceBeen() {
   this.attributes = [];
-  this.currentPlace = 0;
+  this.currentId = 0;
 }
 
-PlaceBeen.prototype.addPlace = function(place) {
+PlaceBeen.prototype.addPlace = function (place) {
+  place.id = this.assignId();
   this.attributes.push(place);
+}
+
+PlaceBeen.prototype.assignId = function() {
+  this.currentId += 1;
+  return this.currentId;
+}
+
+PlaceBeen.prototype.findPlace = function(id) {
+  for (let i=0; i< this.attributes.length; i++){
+    if (this.attributes[i]) {
+      if (this.attributes[i].id == id) {
+        return this.attributes[i];
+      }
+    }
+  };
+  return false;
+}
+
+PlaceBeen.prototype.deletePlace = function(id) {
+  for (let i=0; i< this.attributes.length; i++) {
+    if (this.attributes[i]) {
+      if (this.attributes[i].id == id) {
+        delete this.attributes[i];
+        return true;
+      }
+    }
+  };
+  return false;
 }
 
 
@@ -17,23 +46,22 @@ function Place(location, date, notes) {
 }
 
 
-Place.prototype.allAttributes = function() {
+Place.prototype.allAttributes = function () {
   return this.location + " " + this.date + " " + this.notes;
 }
 
-let placeBeen = new PlaceBeen();
-let place = new Place("Twisp", "2077", "Our last military stronghold before the lazer dragons.");
-let place2 = new Place("An Island in the Sun", "4999", "A lovely place for a glass of white wine.");
-let place3 = new Place("Sting's House", "August 7th, 1983", "We did too much acid.");
-placeBeen.addPlace(place);
-placeBeen.addPlace(place2);
-placeBeen.addPlace(place3);
 
 // USER INTERFACE 
+let placeBeen = new PlaceBeen();
 
-$(document).ready(function() {
-  $("form#triangle").submit(function(event) {
+$(document).ready(function () {
+  $("form#new-place").submit(function (event) {
     event.preventDefault();
-    let location = $("input#number1").val();
-    let date = $("input#number2").val();
-    let notes = $("input#number3").val();
+    const inputLocation = $("input#location").val();
+    const inputDate = $("input#date").val();
+    const inputNotes = $("input#notes").val();
+    let newPlace = new Place(inputLocation, inputDate, inputNotes);
+    placeBeen.addPlace(newPlace);
+    console.log(placeBeen.attributes);
+  });
+});

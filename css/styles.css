@@ -1,7 +1,3 @@
-body {
-  background-color: lightblue;
-}
-
-h1 {
-  color: lightslateblue;
+#show-place {
+  display: none;
 }
